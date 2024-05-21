@@ -1,0 +1,60 @@
+﻿@model IEnumerable<DoctorBookManager.Models.GetDoctorReviewModel>
+
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Dostępne opinie</title>
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic&amp;subset=latin-ext">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+	@*<nav class="nav">
+		<div class="container">
+			<ul>
+				<li><a  asp-action="AddDoctor" asp-controller="Doctor">Dodaj</a></li>
+                <li><a asp-action ="Index" asp-controller="Doctor" >Lista lekarzy</a></li>
+                <li><a asp-action="Index" asp-controller="Review"> Opinie </a></li>
+                <li><a href="#oferta">Wyloguj</a></li>
+			</ul>
+		</div>
+	</nav>*@
+    <a  class="btn  btn-outline-dark " asp-action="AddReview">
+        Utwórz recencję
+    </a>
+    @if (Model.Any())
+    {
+        <div class="content">
+            <table class="tableView">
+                <thead>
+                    <tr>
+                        <th>Imie Nazwisko</th>
+                        <th>Data</th>
+                        <th>Ocena</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var review in Model)
+                    {
+                        <tr>
+                            <td>@review.Name</td>
+                            <td>@review.CreationDate</td>
+                            <td>@review.Grade</td>
+                            <td>
+                                @Html.ActionLink("Wyświetl", "Details", new { id = review.Id  }, new {@class = "btn"})
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+   
+</body>
+</html>
+
+
+

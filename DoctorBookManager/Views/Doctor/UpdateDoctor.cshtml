@@ -1,0 +1,50 @@
+﻿@using DoctorBookManager.Models.Doctor
+@model UpdateDoctorModel
+
+    <div class="content">
+        <h1>Dodawanie lekarza do bazy aplikacji:</h1>
+        <hr />
+
+
+        <form asp-action="UpdateDoctor" class="formClass" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Specialization" class="label">Specjalizacja</label>
+                <input asp-for="Specialization" class="form-control" />
+                <span asp-validation-for="Specialization" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartWorkHour" class="label"></label>
+                <input asp-for="StartWorkHour" class="form-control" />
+                <span asp-validation-for="StartWorkHour" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndWorkHour" class="label"></label>
+                <input asp-for="EndWorkHour" class="form-control" />
+                <span asp-validation-for="EndWorkHour" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FullName" class="label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="City" class="label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Edytuj" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-primary">Wróć</a>
+
+            </div>
+        </form>
+
+       
+
+
+
+
+
+

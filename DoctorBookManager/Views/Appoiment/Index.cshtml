@@ -1,0 +1,47 @@
+﻿@using DoctorBookManager.Models.Appoiment
+@model List<GetAppoimentModelView>;
+
+<div class="content-header">
+    <div class="container-fluid">
+        
+
+        @foreach (var item in @Model)
+        {
+
+
+            <div class="row">
+                <div class=" card  mx-auto" style="background-color: #f8f9fa;margin: 10px auto; width:400px;  margin-bottom:10px ">
+                    
+                    <div class="row card-body">
+
+
+                        <div class="col-sm-7">
+                          
+                                <h3 style="color:#414042">@item.DoctorName  </h3>
+                            
+
+
+                           
+                                <h6> @item.Specialization</h6>
+                                <h6>@item.VisitTime.ToString("dd.MM.yyyy HH:mm")</h6>
+                                
+                            
+                        </div>
+
+                        <div class="col-sm-5">
+
+                            <a class="btn btn btn-secondary float-right" asp-action="DeleteVisit" asp-route-id="@item.Id">Odwołaj</a>
+
+
+                        </div>
+
+                    </div>
+
+                    
+                </div>
+            </div>
+
+
+        }
+    </div>
+</div>

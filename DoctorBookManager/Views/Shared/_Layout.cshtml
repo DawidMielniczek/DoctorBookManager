@@ -1,0 +1,83 @@
+﻿@using System.Security.Claims
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    @* <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ApkaTa</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ApkaTa.styles.css" asp-append-version="true" />*@
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic&amp;subset=latin-ext">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    @* <header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container-fluid">
+    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ApkaTa</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+    <ul class="navbar-nav flex-grow-1">
+    <li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </li>
+    </ul>
+    </div>
+    </div>
+    </nav>
+    </header>*@
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  border-bottom box-shadow mb-3 navbar-lg" style="background: #4b78a0; ">
+        <div class="container-fluid">
+            @* <a class="navbar-brand" asp-area="" asp-controller="Doctor" asp-action="Index">EventManager</a>*@
+             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav mx-auto">
+                        @if (User.FindFirstValue(ClaimTypes.Role) == DoctorBookManageConsts.AdminRoleName)
+                        {
+                            <li class="nav-item" style="margin-right: 10px; width:15vw;"><a class="nav-link text-white" asp-action="AddDoctor" asp-area="" asp-controller="Doctor" >Dodaj</a></li>
+                        }
+                        <li class="nav-item" style="margin-right: 10px; width:15vw"><a class="nav-link text-white" asp-action="Index" asp-area="" asp-controller="Doctor" >Lista lekarzy</a></li>
+                        <li class="nav-item" style="margin-right: 10px; width:15vw"><a class="nav-link text-white" asp-action="Index" asp-area="" asp-controller="Review" > Opinie </a></li>
+                         @if (User.FindFirstValue(ClaimTypes.Role) == DoctorBookManageConsts.UserRoleName)
+                        {
+                            <li class="nav-item" style="margin-right: 10px; width:15vw"><a class="nav-link text-white" asp-action="Index" asp-area="" asp-controller="Appoiment" > Moje wizyty </a></li>
+                        }
+                        @if (User.FindFirstValue(ClaimTypes.Role) == DoctorBookManageConsts.DoctorRoleName)
+                        {
+                            <li class="nav-item" style="margin-right: 10px; width:15vw"><a class="nav-link text-white" asp-action="MyPatients" asp-area="" asp-controller="Appoiment" > Moi pacjenci </a></li>
+                        }
+                       
+
+            </ul>
+            <partial name="_LoginPartial" />
+        </div>
+         </div>
+    </nav>
+    </header>
+    <div class="container">
+        <div>
+            <main role="main">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    @*<footer class="border-top footer text-muted">
+    <div class="container" >
+    &copy; 2023 - ApkaTa - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+    </footer>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

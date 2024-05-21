@@ -1,0 +1,41 @@
+﻿@using DoctorBookManager.Models.Doctor
+@using System.Security.Claims
+@model GetDoctorModel
+
+<div class="container-fluid">
+    <div class=" card  mx-auto" style="background-color: #f8f9fa;margin: 10px auto; width:35vw;  margin-bottom:10px ">
+
+        <div class="row card-body">
+
+
+            <div class="col-sm-7">
+
+                <h3 >@Model.FullName  </h3>
+                <h6 >Godziny pracy: @Model.StartWorkHour-@Model.EndWorkHour  </h6>
+                <h6>Specjalizacja: @Model.Specialization</h6>
+
+                <h6>Miasto: @Model.City</h6>
+                <h6>Email: @Model.Email</h6>
+                <h6>Telefon: @Model.PhoneNumber</h6>
+               
+
+
+            </div>
+
+            <div class="col-sm-5">
+                @if (User.FindFirstValue(ClaimTypes.Role) == DoctorBookManageConsts.UserRoleName || User.FindFirstValue(ClaimTypes.Role) == null)
+                {
+                    <a class="btn btn btn-secondary float-right" asp-controller="Appoiment" asp-action="AvialableVisits" asp-route-doctId="@Model.Id">Umów wizytę</a>
+                }
+              
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+</div>

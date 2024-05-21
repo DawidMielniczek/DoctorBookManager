@@ -1,0 +1,65 @@
+﻿@using System.Security.Claims
+@model List<DoctorBookManager.Data.Entities.DoctorModel>
+
+
+<div class="row justify-content-center" style="margin-bottom:25px;">
+    <form class="form-horizontal">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <input type="text" name="serachString" placeholder="" class="form-control txt-search" style="max-width:200px" />
+            </div>
+
+            <input type="text" name="city" placeholder="Miasto" class="form-control txt-search" style="max-width:200px" />
+
+
+            <div class="input-group-append">
+                <button type="submit" class="btn  btn-outline-dark ">
+                    Wyszukaj
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="content">
+    <table class="tableView">
+        <thead>
+            <tr>
+                <th>Imie Nazwisko</th>
+                <th>Specjalizacja</th>
+                <th>Data dołączenia</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var doctor in Model)
+            {
+                <tr>
+
+                    <td>@doctor.FullName</td>
+                    <td>@doctor.Specialization</td>
+                    <td>@doctor.CreationTime.ToString("dd-MM-yyyy")</td>
+                    <td>
+                        @if (User.FindFirstValue(ClaimTypes.Role) == DoctorBookManageConsts.UserRoleName)
+                        {
+                            @Html.ActionLink("Umów wizytę", "AvialableVisits","Appoiment", new { doctId = @doctor.Id }, new {@class = "btn"})
+                        }
+                        else if (User.FindFirstValue(ClaimTypes.Role) == DoctorBookManageConsts.AdminRoleName)
+                        {
+                            @Html.ActionLink("Usuń", "DeleteDoctor", new { id=@doctor.Id}, new {@class = "btn"})
+                            @Html.ActionLink("Edytuj", "UpdateDoctor", new { id=@doctor.Id}, new {@class = "btn"})
+                        }
+                        @Html.ActionLink("Wyświetl", "Details", new { id = @doctor.Id }, new {@class = "btn"})
+
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+

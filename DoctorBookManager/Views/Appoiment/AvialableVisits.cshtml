@@ -1,0 +1,79 @@
+﻿@using DoctorBookManager.Models.Appoiment
+@using System.Security.Claims
+@model GetAvailableHours
+@section Scripts
+    {
+
+
+
+    <title></title>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2023.1.117/styles/kendo.default-ocean-blue.min.css" />
+
+    <script src="https://kendo.cdn.telerik.com/2023.1.117/js/jquery.min.js"></script>
+
+
+
+    <script src="https://kendo.cdn.telerik.com/2023.1.117/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2023.1.117/js/cultures/kendo.culture.pl-PL.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2023.1.117/js/cultures/kendo.culture.en-GB.min.js"></script>
+
+
+    <script>
+        kendo.culture("pl-PL");
+        $("#datetimepicker").kendoDatePicker({
+            format: "yyyy-MM-dd",
+            dateInput: true,
+            min: kendo.date.today(),
+            weekendRestriction: true,
+            
+        });
+    </script>
+    }
+    <div class="container-fluid">
+        <div class=" card  mx-auto" style="background-color: #f8f9fa;margin: 10px auto; width:25vw;  margin-bottom:10px ">
+            <form class="form-horizontal" method="post" id="BookAppoiment">
+            <div class="row card-body">
+               
+
+                <div class="col-sm-7">
+                   
+                        <h3>@Model.DoctorName  </h3>
+                        <input type="text" class="form-control" style="width:150px" id="datetimepicker" name="date" asp-for="@Model.Date" min="@DateTime.Now" value=@Model.Date.ToString("yyyy-MM-dd") />
+                    @if (Model.AvaialbleHours.Any())
+                    {
+                        <h6>Dostępne godziny </h6>
+                        <select class="form-control" name="hour"  asp-selected="@Model.AvaialbleHours.First()" style="width:70px">
+
+                            @foreach (var hour in @Model.AvaialbleHours)
+                            {
+                                <option value=@hour>@hour</option>
+                            }
+                        </select>
+                    }
+                    else
+                    {
+                        <h6>Brak wolnych terminów w tym dniu </h6>
+                    }
+                    <input name="doctId" type="hidden" value="@Model.DoctId" />
+                    <input name="date" type="hidden" value="@Model.Date" />
+                    @if (User.FindFirstValue(ClaimTypes.Role) == DoctorBookManageConsts.UserRoleName || User.FindFirstValue(ClaimTypes.Role) == null)
+                    {
+                        <button type="submit" class="btn btn-primary" style="float:right; margin-top:10px" asp-route-save="true">Zatwierdź wybór</button>
+                    }
+
+
+            </div>
+
+            <div class="col-sm-5">
+                    <button type="submit" class="btn btn btn-secondary float-right">Wyszukaj</button>
+                    @*<a type="submit" class="btn btn btn-secondary float-right" asp-action="AvialableVisits" asp-route-date=@Model.Date asp-route-doctId="@Model.DoctId">Wyszukaj</a>*@
+
+
+            </div>
+             
+        </div>
+        </form>
+
+
+    </div>
+</div>
